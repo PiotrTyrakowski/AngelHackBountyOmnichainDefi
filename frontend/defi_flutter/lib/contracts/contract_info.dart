@@ -3,6 +3,7 @@ class ContractInfo {
   String ownerAddress;
   String contractDescription;
   String contractCode;
+  int likes; 
   List<FunctionArgument>? contractArguments;
   FunctionArgument? returnValue;
 
@@ -12,6 +13,7 @@ class ContractInfo {
       required this.ownerAddress,
       required this.contractDescription,
       required this.contractCode,
+      required this.likes,
       this.contractArguments,
       this.returnValue
     }

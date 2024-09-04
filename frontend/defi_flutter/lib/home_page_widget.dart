@@ -1,5 +1,8 @@
+import 'package:defi_flutter/contracts/contract_info.dart';
+import 'package:defi_flutter/contracts/contract_widget.dart';
 import 'package:flutter/material.dart';
 import 'rounded_container.dart';
+import 'contracts/contracts.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
@@ -9,6 +12,8 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
+  ContractInfo? _selectedcontract;
+
   @override
   Widget build(BuildContext context) {
     // return LoginFirstWidget(child: _buildGamesLib(context));
@@ -18,9 +23,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   Widget _buildGamesLib(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [Text("data")],
+        children: contractList.map((contract) => ContractWidget(
+                    info: contract,
+                    onClick: () {
+                      setState(() {
+                        _selectedcontract = contract;
+                      });
+                    },
+                  )).toList(),
       ),
     );
   }
