@@ -2,10 +2,9 @@ class ContractInfo {
   String contractAddress;
   String ownerAddress;
   String contractDescription;
+  String contractTitle;
   String contractCode;
-  int likes; 
-  List<FunctionArgument>? contractArguments;
-  FunctionArgument? returnValue;
+  int numberOfLikes; 
   bool isLiked = false;
 
   ContractInfo(
@@ -13,23 +12,10 @@ class ContractInfo {
       required this.contractAddress,
       required this.ownerAddress,
       required this.contractDescription,
+      required this.contractTitle,
       required this.contractCode,
-      required this.likes,
-      this.contractArguments,
-      this.returnValue,
+      required this.numberOfLikes,
       this.isLiked = false
-    }
-  );
-}
-
-class FunctionArgument{
-  String type;
-  String name;
-
-  FunctionArgument(
-    {
-      required this.type,
-      required this.name
     }
   );
 }
