@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'rounded_container.dart';
+import 'home_page_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,11 +12,23 @@ class HomePage extends StatelessWidget {
       body: Padding(
           padding: const EdgeInsets.all(24),
           child: LayoutBuilder(builder: (context, constraints) {
-            return RoundedContainer(
-                width: constraints.maxWidth,
-                height: constraints.maxHeight,
-                borderColor: Colors.white,
-                child: const Text("test"));
+            return Column(
+              children: [
+                const Text("BestContracts",
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                    )),
+                Expanded(
+                  child: RoundedContainer(
+                    width: constraints.maxWidth,
+                    height: null,
+                    borderColor: Colors.white,
+                    child: const HomePageWidget(),
+                  ),
+                ),
+              ],
+            );
           })),
     );
   }
