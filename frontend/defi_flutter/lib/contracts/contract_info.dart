@@ -6,6 +6,7 @@ class ContractInfo {
   int likes; 
   List<FunctionArgument>? contractArguments;
   FunctionArgument? returnValue;
+  bool isLiked = false;
 
   ContractInfo(
     {
@@ -15,7 +16,8 @@ class ContractInfo {
       required this.contractCode,
       required this.likes,
       this.contractArguments,
-      this.returnValue
+      this.returnValue,
+      this.isLiked = false
     }
   );
 }
