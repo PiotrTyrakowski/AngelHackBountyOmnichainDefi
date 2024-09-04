@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'contract_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,17 +12,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    const mainPage = HomePage();
+    const mainPage = ContractPage();
 
     return MaterialApp(
-      title: 'BestContracts',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => mainPage
-      }
-    );
+        title: 'BestContracts',
+        theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => mainPage,
+        });
   }
 }
