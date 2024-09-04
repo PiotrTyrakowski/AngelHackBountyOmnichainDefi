@@ -16,24 +16,28 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // return LoginFirstWidget(child: _buildGamesLib(context));
     return _buildGamesLib(context);
   }
 
   Widget _buildGamesLib(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: contractList.map((contract) => ContractWidget(
-                    info: contract,
-                    onClick: () {
-                      setState(() {
-                        _selectedcontract = contract;
-                      });
-                    },
-                  )).toList(),
-      ),
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.all(16),
+          sliver: SliverList(
+            delegate: SliverChildListDelegate(
+              contractList.map((contract) => ContractWidget(
+                info: contract,
+                onClick: () {
+                  setState(() {
+                    _selectedcontract = contract;
+                  });
+                },
+              )).toList(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

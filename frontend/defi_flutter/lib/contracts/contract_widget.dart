@@ -24,7 +24,7 @@ class _ContractWidgetState extends State<ContractWidget> {
 
   void _handleLikeButtonTap() {
     setState(() {
-      widget._info.likes = widget._info.isLiked ? widget._info.likes - 1 : widget._info.likes + 1;
+      widget._info.numberOfLikes = widget._info.isLiked ? widget._info.numberOfLikes - 1 : widget._info.numberOfLikes + 1;
       widget._info.isLiked = !widget._info.isLiked;
     });
   }
@@ -58,7 +58,7 @@ class _ContractWidgetState extends State<ContractWidget> {
                           initialIsLiked: widget._info.isLiked,
                           onTap: _handleLikeButtonTap,
                         ),
-                        Text(widget._info.likes.toString())
+                        Text(widget._info.numberOfLikes.toString())
                       ],
                     ),
                   ),
@@ -72,6 +72,6 @@ class _ContractWidgetState extends State<ContractWidget> {
   }
 
   String _toString() {
-    return "Smart contract address: ${widget._info.contractAddress}\nSmart contract owner address ${widget._info.ownerAddress}";
+    return "${widget._info.contractTitle}\n${widget._info.contractDescription}\nSmart contract address: ${widget._info.contractAddress}";
   }
 }
