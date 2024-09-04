@@ -37,17 +37,3 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 }
-
-
-        // children: swaps
-        //     .map((swap) => SwapBlankWidget(
-        //         info: swap,
-        //         onClick: () {
-        //           setState(() {
-        //             _selectedSwapId = swap.contractId;
-        //             _contractInfo = swap;
-        //           });
-        //         },
-        //         onAccept: () => {},
-        //         onDecline: () => {}))
-        //     .toList(),
