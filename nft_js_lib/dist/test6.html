@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 6 - Dynamic Contract Runner</title>
+</head>
+<body>
+<h1>Test 6 - Dynamic Contract Runner</h1>
+
+<label for="method">method:</label>
+<input type="text" id="method" required><br><br>
+
+<label for="kwargs">kwargs:</label>
+<input type="text" id="kwargs" required><br><br>
+
+<label for="contractId">contractId:</label>
+<input type="text" id="contractId" required><br><br>
+
+<label for="abi">abi:</label>
+<input type="text" id="abi" required><br><br>
+
+
+<button id="run">run contract</button>
+<br><br>
+
+
+<script src="bundle.js"></script>
+<script type="module">
+    document.getElementById("run").addEventListener('click', async () => {
+        const method = document.getElementById('method').value.trim();
+        const contract = document.getElementById('contractId').value.trim();
+        const kwargs = document.getElementById('kwargs').value.trim();
+        const abi = document.getElementById('abi').value.trim();
+
+
+        RunDynamicContractMethod(contract, abi, method, kwargs);
+    });
+
+
+</script>
+</body>
+</html>
