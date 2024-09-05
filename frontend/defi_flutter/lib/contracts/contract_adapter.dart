@@ -1,13 +1,21 @@
-class ContractAdapter {
-  // lista
-  static List<(String, List<(String, String)>)> getContractMethods(
-      String contractId) {
-    return [];
-  }
+@JS()
+library my_lib; //Not avoid the library annotation
 
+import 'package:js/js.dart';
+import 'dart:js_util' as jsu;
+
+@JS()
+external RunDynamicContractMethod(
+    String contractAddress, String contractAbi, String method, String kwargs);
+
+class ContractAdapter {
   // true on failure, false otherwise
-  static bool executeContractMethod(
-      String contractId, String methodName, List<(String, String)> args) {
-    return true;
+  static Future<bool> executeContractMethod(String contractId,
+      String methodName, String kwargs, String contractAbi) async {
+    var jsPromise =
+        RunDynamicContractMethod(contractId, contractAbi, methodName, kwargs);
+    String result = await jsu.promiseToFuture<String>(jsPromise);
+
+    return result == "FAIL";
   }
 }
