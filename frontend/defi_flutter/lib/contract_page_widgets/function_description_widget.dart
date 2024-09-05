@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FunctionDescriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return const ListTile(
       contentPadding: EdgeInsets.zero,
       leading: Icon(Icons.add_circle_outline, color: Colors.grey),
       title: Text(
@@ -14,7 +14,6 @@ class FunctionDescriptionWidget extends StatelessWidget {
         'Description duis aute irure dolor in reprehenderit in voluptate velit.',
         style: TextStyle(fontSize: 14),
       ),
-      trailing: Text('Today • 23 min'),
     );
   }
 }

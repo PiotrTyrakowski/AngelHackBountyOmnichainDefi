@@ -1,3 +1,4 @@
+import 'package:defi_flutter/contracts/contract_info.dart';
 import 'package:flutter/material.dart';
 import 'contract_page_widgets/appbar_widget.dart';
 import 'contract_page_widgets/header_widget.dart';
@@ -7,26 +8,24 @@ import 'contract_page_widgets/function_area_widget.dart';
 import 'contract_page_widgets/function_description_widget.dart';
 
 class ContractPage extends StatelessWidget {
-  const ContractPage({super.key});
+  final ContractInfo contract;  // Add this field
+
+  const ContractPage({super.key, required this.contract});  // Update the constructor
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Contract name"),
+      appBar: CustomAppBar(title: contract.contractTitle),  // Example of using the contract info
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderWidget(
-              title: "Headline",
-              subtitle:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-              description:
-                  "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+              title: contract.contractTitle,  
+              subtitle: "Smart contract address: ${contract.contractAddress}",
+              description: contract.contractDescription,  // Use contract data
             ),
-            SizedBox(height: 16),
-            DownloadButtonWidget(),
             SizedBox(height: 32),
             SectionTitleWidget(),
             SizedBox(height: 16),
