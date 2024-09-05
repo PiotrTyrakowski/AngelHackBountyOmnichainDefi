@@ -12,8 +12,8 @@ class NftFetcher {
    * @param {string} walletAddress - The wallet address.
    */
   constructor(goldskyApi, walletAddress) {
-    this.goldskyApi = assignCheckNull(goldskyApi);
-    this.walletAddress = assignCheckNull(walletAddress);
+    this.goldskyApi = assignCheckNull(goldskyApi, 'Goldsky API not provided');
+    this.walletAddress = assignCheckNull(walletAddress.toLowerCase(), 'Wallet address not provided');
     validateAddress(walletAddress);
   }
 
@@ -22,9 +22,9 @@ class NftFetcher {
    * @returns {Promise<string[]>} - The owned tokens.
    * @throws {Error} - If there is an error fetching user NFTs.
    */
-  async fetchUserNFT() {
+  async fetchUserNft() {
     try {
-      const transfers = assignCheckNull(await this.fetchUserTransfers());
+      const transfers = assignCheckNull(await this.fetchUserTransfers(), 'Transfers not found');
 
       // Sort the transfers based on block number
       transfers.sort(
