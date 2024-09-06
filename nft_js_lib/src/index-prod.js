@@ -5,6 +5,7 @@ import NftMetadataFetcher from './NftMetadataFetcher.js';
 import NftSwapper from './NftSwapper.js';
 import NftSwapsFetcher from './NftSwapsFetcher.js';
 import { assignCheckNull, validateAddress, validateSwapId, validateTokenId } from './Utils.js';
+import { RunDynamicContractMethod } from './api.js';
 
 export {
     walletInstance,
@@ -17,5 +18,6 @@ export {
     assignCheckNull,
     validateAddress,
     validateSwapId,
-    validateTokenId
+    validateTokenId,
+    RunDynamicContractMethod
 };

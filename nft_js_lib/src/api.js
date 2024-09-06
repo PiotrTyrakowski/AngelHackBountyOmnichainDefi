@@ -1,13 +1,18 @@
 import DynamicContractCaller from './DynamicContractCaller.js'
 import {ethers} from "ethers";
 
-async function RunDynamicContractMethod(contractAddress, contractAbi, method, kwargs) {
+export async function RunDynamicContractMethod(contractAddress, contractAbi, method, kwargs) {
     let zetaNetwork
     let contractCaller
 
     try {
         zetaNetwork = new ethers.Network("https://zeta-chain-testnet.drpc.org", 7001);
+    } catch (error) {
+        console.log(`Error occurred during network constructor: ${error}`);
+        return "FAIL";
+    }
 
+    try {
         contractCaller = new DynamicContractCaller(zetaNetwork, contractAddress, contractAbi);
     } catch (error) {
         console.log(`Error occurred during contract constructor: ${error}`);

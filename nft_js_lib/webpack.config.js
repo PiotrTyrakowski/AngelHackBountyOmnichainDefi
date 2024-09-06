@@ -43,7 +43,7 @@ const prodConfig = {
         libraryTarget: 'umd', // UMD format for compatibility
         globalObject: 'this', // Ensures compatibility in different environments
     },
-    mode: 'production', // Minify and optimize output for production
+    mode: 'development', // Minify and optimize output for production
 };
 
 // Exporting based on environment

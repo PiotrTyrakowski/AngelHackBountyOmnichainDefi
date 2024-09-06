@@ -6,6 +6,7 @@ import NftMetadataFetcher from './NftMetadataFetcher.js';
 import NftSwapper from './NftSwapper.js';
 import NftSwapsFetcher from './NftSwapsFetcher.js';
 import { assignCheckNull, validateAddress, validateSwapId, validateTokenId } from './Utils.js';
+import { RunDynamicContractMethod } from './api.js';
 
 // Expose walletInstance to the global scope
 window.walletInstance = walletInstance;
@@ -18,3 +19,4 @@ window.assignCheckNull = assignCheckNull;
 window.validateAddress = validateAddress;
 window.validateSwapId = validateSwapId;
 window.validateTokenId = validateTokenId;
+window.RunDynamicContractMethod = RunDynamicContractMethod;
