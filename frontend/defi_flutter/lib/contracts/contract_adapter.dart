@@ -21,3 +21,71 @@ class ContractAdapter {
     return result == "FAIL";
   }
 }
+
+  List<(String, List<(String, String)>)> smartContractMethods = [
+    (
+      'transfer',
+      [
+        ('recipient', 'address'),
+        ('amount', 'uint256')
+      ]
+    ),
+    (
+      'approve',
+      [
+        ('spender', 'address'),
+        ('amount', 'uint256')
+      ]
+    ),
+    (
+      'allowance',
+      [
+        ('owner', 'address'),
+        ('spender', 'address')
+      ]
+    ),
+    (
+      'mint',
+      [
+        ('to', 'address'),
+        ('amount', 'uint256')
+      ]
+    ),
+    (
+      'burn',
+      [
+        ('amount', 'uint256')
+      ]
+    ),
+    (
+      'setApprovalForAll',
+      [
+        ('operator', 'address'),
+        ('approved', 'bool')
+      ]
+    ),
+    (
+      'safeTransferFrom',
+      [
+        ('from', 'address'),
+        ('to', 'address'),
+        ('tokenId', 'uint256')
+      ]
+    ),
+    (
+      'getApproved',
+      [
+        ('tokenId', 'uint256')
+      ]
+    ),
+    (
+      'balanceOf',
+      [
+        ('owner', 'address')
+      ]
+    ),
+    (
+      'totalSupply',
+      []
+    )
+  ];

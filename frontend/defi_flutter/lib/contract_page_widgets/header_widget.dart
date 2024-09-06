@@ -4,12 +4,14 @@ class HeaderWidget extends StatelessWidget {
   final String title;
   final String subtitle;
   final String description;
+  final bool isVerified; // Add a field for verification status
 
-  // Constructor to accept title, subtitle, and description
+  // Constructor to accept title, subtitle, description, and verification status
   HeaderWidget({
     required this.title,
     required this.subtitle,
     required this.description,
+    this.isVerified = true, // Default is false
   });
 
   @override
@@ -25,30 +27,44 @@ class HeaderWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: Colors.grey[300],
           ),
-          child: Icon(Icons.image, size: 120),
+          child: const Icon(Icons.image, size: 120),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
         // Headline and text
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  if (isVerified)
+                    const Tooltip(
+                      message: 'Verified contract',
+                      child: Icon(
+                        Icons.verified,
+                        color: Colors.blue,
+                        size: 24,
+                      ),
+                    ),
+                ],
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 subtitle,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 description,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ],
           ),
