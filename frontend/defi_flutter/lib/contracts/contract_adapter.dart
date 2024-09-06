@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @JS()
 library my_lib; //Not avoid the library annotation
 
@@ -19,6 +20,19 @@ class ContractAdapter {
     print(result);
 
     return result == "FAIL";
+=======
+class ContractAdapter {
+  // lista
+  static List<(String, List<(String, String)>)> getContractMethods(
+      String contractId) {
+    return smartContractMethods;
+  }
+
+  // true on failure, false otherwise
+  static bool executeContractMethod(
+      String contractId, String methodName, List<(String, String)> args) {
+    return true;
+>>>>>>> 0fcd17c002aa46823eb07411c861f6694d60cefa
   }
 }
 
