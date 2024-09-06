@@ -40,8 +40,7 @@ class ContractPage extends StatelessWidget {
                   code: contract.contractCode, // Pass the contract code
                 ),
                 const SizedBox(height: 16),
-                ...ContractAdapter.getContractMethods(contract.contractAddress)
-                    .map((tuple) {
+                ...contract.getContractMethods().map((tuple) {
                   // Extract the method name and arguments from the tuple
                   final methodName = tuple.$1;
                   final args = tuple.$2;
