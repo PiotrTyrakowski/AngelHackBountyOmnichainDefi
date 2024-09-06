@@ -1,14 +1,15 @@
-import 'package:defi_flutter/contracts/contract_info.dart';
 import 'package:flutter/material.dart';
 
 class ArgWidget extends StatelessWidget {
   final String argName;
   final String argType;
+  final TextEditingController controller;
 
   const ArgWidget({
     super.key,
     required this.argName,
     required this.argType,
+    required this.controller,
   });
 
   @override
@@ -21,13 +22,13 @@ class ArgWidget extends StatelessWidget {
             child: Center(
                 child: Text(
               "$argName:",
-              style: TextStyle(fontSize: 16), // Optional: adjust text style
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             )),
           ),
           Expanded(
             flex: 5,
             child: TextField(
-              obscureText: true,
+              controller: controller,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: argType,
