@@ -6,19 +6,19 @@ import 'dart:js_util' as jsu;
 
 @JS()
 external RunDynamicContractMethod(
-    String contract, String abi, String method, String kwargs);
+    String contract, String abi, String method, String jsonArgNames, String jsonArgTypes, String jsonArgValues);
 
 class ContractAdapter {
   // true on failure, false otherwise
-  static Future<bool> executeContractMethod(String contractId,
-      String methodName, String kwargs, String contractAbi) async {
+  static Future<String> executeContractMethod(String contractAbi, String contractId,
+      String methodName, String jsonArgNames, String jsonArgTypes, String jsonArgValues) async {
     var jsPromise =
-        RunDynamicContractMethod(contractId, contractAbi, methodName, kwargs);
+        RunDynamicContractMethod(contractId, contractAbi, methodName, jsonArgNames, jsonArgTypes, jsonArgValues);
     String result = await jsu.promiseToFuture<String>(jsPromise);
 
     print(result);
 
-    return result == "FAIL";
+    return result;
   }
 }
 

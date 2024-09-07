@@ -49,9 +49,8 @@ class ContractPage extends StatelessWidget {
                   return MethodWidget(
                     methodName: methodName,
                     args: args,
-                    onClick: () {
-                      // Handle the onClick action here
-                    },
+                    abi: contract.contractAbi,
+                    contractAddress: contract.contractAddress,
                   );
                 }).toList(),
               ],

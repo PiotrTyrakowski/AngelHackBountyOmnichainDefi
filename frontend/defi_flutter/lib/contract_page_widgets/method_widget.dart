@@ -1,20 +1,24 @@
+import 'package:defi_flutter/contracts/contract_adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:defi_flutter/contract_page_widgets/arg_widget.dart';
+import 'dart:convert';
 
 class MethodWidget extends StatefulWidget {
   final String _methodName;
   final List<(String, String)> _args;
-  final VoidCallback? onClick;
-  final Function(List<String>)? onExecute;
+  final String _abi;
+  final String _contractAddress;
 
   const MethodWidget({
     Key? key,
     required String methodName,
     required List<(String, String)> args,
-    this.onClick,
-    this.onExecute,
+    required String abi,
+    required String contractAddress
   })  : _methodName = methodName,
         _args = args,
+        _abi = abi,
+        _contractAddress = contractAddress,
         super(key: key);
 
   @override
@@ -40,23 +44,37 @@ class _MethodWidgetState extends State<MethodWidget> {
     super.dispose();
   }
 
-  List<String>? executeMethodWrapper() {
-    List<String> inputs = _controllers.map((controller) => controller.text.trim()).toList();
-    
+  (String, String, String) getJsonLists() {
+    List<String> argValues =
+        _controllers.map((controller) => controller.text.trim()).toList();
+
     // Check for empty inputs
-    if (inputs.any((input) => input.isEmpty)) {
+    if (argValues.any((input) => input.isEmpty)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('All fields must be filled')),
       );
-      return null;
-    }
-    
-    for (var str in inputs)
-    {
-      print(str);
+      return ("FAILED", "FAILED", "FAILED");
     }
 
-    return inputs;
+    // preparing right format of jsons
+    List<String> argNames = [];
+    List<String> argTypes = [];
+
+    for (var arg in widget._args) {
+      argNames.add(arg.$1);
+      argTypes.add(arg.$2);
+    }
+
+    String jsonArgNames = jsonEncode(argNames);
+    String jsonArgTypes = jsonEncode(argTypes);
+    String jsonArgValues = jsonEncode(argValues);
+
+    return (jsonArgNames, jsonArgTypes, jsonArgValues);
+  }
+
+  Future<String> executeMethodWrapper((String jsonArgNames, String jsonArgTypes, String jsonArgValues) tuple) async
+  {
+    return await ContractAdapter.executeContractMethod(widget._abi, widget._contractAddress, widget._methodName, tuple.$1, tuple.$2, tuple.$3);
   }
 
   @override
@@ -64,7 +82,6 @@ class _MethodWidgetState extends State<MethodWidget> {
     return SizedBox(
       width: double.infinity,
       child: InkWell(
-        onTap: widget.onClick,
         child: Card.filled(
           color: Colors.blue[100],
           child: Padding(
@@ -74,7 +91,8 @@ class _MethodWidgetState extends State<MethodWidget> {
               children: [
                 Text(
                   "\"${widget._methodName}\" method",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 ...List.generate(
@@ -90,11 +108,9 @@ class _MethodWidgetState extends State<MethodWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        final inputs = executeMethodWrapper();
-                        if (inputs != null && widget.onExecute != null) {
-                          widget.onExecute!(inputs);
-                        }
+                      onPressed: () async{
+                        String output = await executeMethodWrapper(getJsonLists());
+                        print(output);
                       },
                       child: const Text("Execute"),
                     ),

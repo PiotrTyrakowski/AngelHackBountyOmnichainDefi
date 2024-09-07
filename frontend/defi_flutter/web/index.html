@@ -36,9 +36,9 @@
   <script src="flutter_bootstrap.js" async></script>
   <script src="LibJsNft.js"></script>
   <script type="module">
-    async function RunDynamicContractMethod(contract, abi, method, kwargs)
+    async function RunDynamicContractMethod(contractAddress, contractAbi, method, jsonArgNames, jsonArgTypes, jsonArgValues)
     {
-      return await LibJsNft.RunDynamicContractMethod(contract, abi, method, kwargs);
+      return await LibJsNft.RunDynamicContractMethod(contractAddress, contractAbi, method, jsonArgNames, jsonArgTypes, jsonArgValues);
     }
   </script>
 </body>
