@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black38,
+      backgroundColor: Colors.blue[200],
       body: Padding(
           padding: const EdgeInsets.all(24),
           child: LayoutBuilder(builder: (context, constraints) {
@@ -16,8 +16,9 @@ class HomePage extends StatelessWidget {
               children: [
                 const Text("BestContracts",
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 40,
                       color: Colors.white,
+                      fontWeight: FontWeight.bold, 
                     )),
                 Expanded(
                   child: RoundedContainer(

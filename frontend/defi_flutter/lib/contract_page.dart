@@ -36,9 +36,10 @@ class ContractPage extends StatelessWidget {
                       contract.contractDescription, // Use contract data
                 ),
                 const SizedBox(height: 30),
-                CodeDisplayWidget(
+                Center(
+                    child: CodeDisplayWidget(
                   code: contract.contractCode, // Pass the contract code
-                ),
+                )),
                 const SizedBox(height: 16),
                 ...contract.getContractMethods().map((tuple) {
                   // Extract the method name and arguments from the tuple
