@@ -1,4 +1,4 @@
-import 'package:defi_flutter/contract_page_widgets/CodeDisplayWidget';
+import 'package:defi_flutter/contract_page_widgets/CodeDisplayWidget.dart';
 import 'package:defi_flutter/contract_page_widgets/method_widget.dart';
 import 'package:defi_flutter/contracts/contract_adapter.dart';
 import 'package:defi_flutter/contracts/contract_info.dart';

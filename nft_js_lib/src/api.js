@@ -1,16 +1,20 @@
 import DynamicContractCaller from './DynamicContractCaller.js'
 import {ethers} from "ethers";
+import {validateAddress} from "./Utils.js";
 
 export async function RunDynamicContractMethod(contractAddress, contractAbi, method, jsonArgNames, jsonArgTypes, jsonArgValues) {
     let zetaNetwork
     let contractCaller
+    let kwargs
 
     try{
         kwargs = listsToJson(jsonArgNames, jsonArgTypes, jsonArgValues);
     } catch(error) {
-        console.log(`Error occured during converting json lists pf strings into kwargs json: ${error}`);
+        console.log(`Error occured during converting json lists of strings into kwargs json: ${error}`);
         return `Failed: ${error}`;
     }
+
+    console.log(kwargs);
 
     try {
         zetaNetwork = new ethers.Network("https://zeta-chain-testnet.drpc.org", 7001);
@@ -35,6 +39,11 @@ export async function RunDynamicContractMethod(contractAddress, contractAbi, met
 }
 
 function listsToJson(argNames, argTypes, argValues) {
+
+    argNames = JSON.parse(argNames);
+    argTypes = JSON.parse(argTypes);
+    argValues = JSON.parse(argValues);
+
     if (argNames.length !== argTypes.length || argTypes.length !== argValues.length) {
         throw new Error("All input lists must have the same length");
     }
@@ -49,32 +58,20 @@ function listsToJson(argNames, argTypes, argValues) {
         // Convert value based on type
         switch (type) {
             case "address":
-                if (ethers.utils.isAddress(value)) {
-                    value = ethers.utils.getAddress(value); // Checksum address
-                } else {
+                if (!validateAddress(value)) {
                     throw new Error(`Invalid Ethereum address for argument: ${name}`);
                 }
                 break;
             case "uint256":
+                break;
             case "int256":
-                try {
-                    value = ethers.BigNumber.from(value).toString();
-                } catch (e) {
-                    throw new Error(`Invalid ${type} for argument: ${name}`);
-                }
                 break;
             case "bool":
                 value = value.toLowerCase() === "true";
                 break;
             case "bytes32":
-                if (ethers.utils.isHexString(value) && value.length === 66) {
-                    value = ethers.utils.hexZeroPad(value, 32);
-                } else {
-                    throw new Error(`Invalid bytes32 for argument: ${name}`);
-                }
                 break;
             case "string":
-                // Keep as is, will be JSON stringified later
                 break;
             default:
                 // For arrays and other complex types, try to parse as JSON
@@ -88,7 +85,9 @@ function listsToJson(argNames, argTypes, argValues) {
         result[name] = value;
     }
 
-    return JSON.stringify(result, (key, value) => 
+    let jsonOutput = JSON.stringify(result, (key, value) => 
         typeof value === 'bigint' ? value.toString() : value
     , 2);
+
+    return jsonOutput;
 }

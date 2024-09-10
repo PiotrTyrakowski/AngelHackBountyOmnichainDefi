@@ -44,14 +44,28 @@ class _MethodWidgetState extends State<MethodWidget> {
     super.dispose();
   }
 
-  (String, String, String) getJsonLists() {
+  Future<(String, String, String)> getJsonLists() async {
     List<String> argValues =
         _controllers.map((controller) => controller.text.trim()).toList();
 
     // Check for empty inputs
     if (argValues.any((input) => input.isEmpty)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('All fields must be filled')),
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: const Text('All fields must be filled'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
       );
       return ("FAILED", "FAILED", "FAILED");
     }
@@ -72,10 +86,42 @@ class _MethodWidgetState extends State<MethodWidget> {
     return (jsonArgNames, jsonArgTypes, jsonArgValues);
   }
 
+
   Future<String> executeMethodWrapper((String jsonArgNames, String jsonArgTypes, String jsonArgValues) tuple) async
   {
+    if (tuple.$1 == "FAILED"){
+      return "FAILED";
+    }
     return await ContractAdapter.executeContractMethod(widget._abi, widget._contractAddress, widget._methodName, tuple.$1, tuple.$2, tuple.$3);
   }
+
+  Future<void> _showMyDialog(String message) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Info'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(message),  // Display the passed string here
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +155,11 @@ class _MethodWidgetState extends State<MethodWidget> {
                   children: [
                     ElevatedButton(
                       onPressed: () async{
-                        String output = await executeMethodWrapper(getJsonLists());
-                        print(output);
+                        String output = await executeMethodWrapper(await getJsonLists());
+                        if (output != "FAILED")
+                        {
+                          _showMyDialog(output);
+                        }
                       },
                       child: const Text("Execute"),
                     ),

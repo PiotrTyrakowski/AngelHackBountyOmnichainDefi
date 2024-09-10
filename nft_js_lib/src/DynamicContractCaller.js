@@ -48,7 +48,7 @@ class DynamicContractCaller {
                     return receipt.transactionHash;
                 }
                 else{
-                    return "SUCCESS";
+                    return `SUCCESS: ${receipt}`;
                 }
             } else if (typeof result === 'string') {
                 console.log(`Method returned string: ${result}`);

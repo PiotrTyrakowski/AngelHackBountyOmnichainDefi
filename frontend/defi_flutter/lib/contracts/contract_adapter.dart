@@ -3,8 +3,9 @@ library my_lib; //Not avoid the library annotation
 
 import 'package:js/js.dart';
 import 'dart:js_util' as jsu;
+import 'dart:js' as js;
 
-@JS()
+@JS('RunDynamicContractMethod')
 external RunDynamicContractMethod(
     String contract, String abi, String method, String jsonArgNames, String jsonArgTypes, String jsonArgValues);
 
@@ -13,7 +14,8 @@ class ContractAdapter {
   static Future<String> executeContractMethod(String contractAbi, String contractId,
       String methodName, String jsonArgNames, String jsonArgTypes, String jsonArgValues) async {
     var jsPromise =
-        RunDynamicContractMethod(contractId, contractAbi, methodName, jsonArgNames, jsonArgTypes, jsonArgValues);
+       RunDynamicContractMethod(contractId, contractAbi, methodName, jsonArgNames, jsonArgTypes, jsonArgValues);
+    
     String result = await jsu.promiseToFuture<String>(jsPromise);
 
     print(result);
