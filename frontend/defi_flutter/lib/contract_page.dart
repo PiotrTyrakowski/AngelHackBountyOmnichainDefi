@@ -19,16 +19,17 @@ class ContractPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: CustomAppBar(
             title:
                 contract.contractTitle), // Example of using the contract info
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HeaderWidget(
+                CenteredHeaderWidget(
                   title: contract.contractTitle,
                   subtitle:
                       "Smart contract address: ${contract.contractAddress}",

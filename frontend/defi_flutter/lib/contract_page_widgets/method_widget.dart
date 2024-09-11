@@ -9,13 +9,13 @@ class MethodWidget extends StatefulWidget {
   final String _abi;
   final String _contractAddress;
 
-  const MethodWidget({
-    Key? key,
-    required String methodName,
-    required List<(String, String)> args,
-    required String abi,
-    required String contractAddress
-  })  : _methodName = methodName,
+  const MethodWidget(
+      {Key? key,
+      required String methodName,
+      required List<(String, String)> args,
+      required String abi,
+      required String contractAddress})
+      : _methodName = methodName,
         _args = args,
         _abi = abi,
         _contractAddress = contractAddress,
@@ -86,50 +86,64 @@ class _MethodWidgetState extends State<MethodWidget> {
     return (jsonArgNames, jsonArgTypes, jsonArgValues);
   }
 
-
-  Future<String> executeMethodWrapper((String jsonArgNames, String jsonArgTypes, String jsonArgValues) tuple) async
-  {
-    if (tuple.$1 == "FAILED"){
+  Future<String> executeMethodWrapper(
+      (
+        String jsonArgNames,
+        String jsonArgTypes,
+        String jsonArgValues
+      ) tuple) async {
+    if (tuple.$1 == "FAILED") {
       return "FAILED";
     }
-    return await ContractAdapter.executeContractMethod(widget._abi, widget._contractAddress, widget._methodName, tuple.$1, tuple.$2, tuple.$3);
+    return await ContractAdapter.executeContractMethod(
+        widget._abi,
+        widget._contractAddress,
+        widget._methodName,
+        tuple.$1,
+        tuple.$2,
+        tuple.$3);
   }
 
   Future<void> _showMyDialog(String message) async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Info'),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text(message),  // Display the passed string here
-            ],
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Info'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(message), // Display the passed string here
+              ],
+            ),
           ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: InkWell(
-        child: Card.filled(
-          color: Colors.blue[100],
+        child: Card(
+          color: Colors.black54,
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(
+                color: Colors.black, width: 2.0), // Black outline
+            borderRadius:
+                BorderRadius.circular(4.0), // Optional: sets rounded corners
+          ),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
@@ -138,7 +152,7 @@ class _MethodWidgetState extends State<MethodWidget> {
                 Text(
                   "\"${widget._methodName}\" method",
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                      fontSize: 23, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 const SizedBox(height: 16),
                 ...List.generate(
@@ -154,10 +168,10 @@ class _MethodWidgetState extends State<MethodWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () async{
-                        String output = await executeMethodWrapper(await getJsonLists());
-                        if (output != "FAILED")
-                        {
+                      onPressed: () async {
+                        String output =
+                            await executeMethodWrapper(await getJsonLists());
+                        if (output != "FAILED") {
                           _showMyDialog(output);
                         }
                       },

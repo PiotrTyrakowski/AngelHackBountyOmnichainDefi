@@ -15,7 +15,7 @@ class CodeDisplayWidget extends StatelessWidget {
       child: IntrinsicWidth(
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.blue[100],
+            color: Colors.black87,
             borderRadius: BorderRadius.circular(8),
           ),
           padding: const EdgeInsets.all(16),
@@ -27,6 +27,7 @@ class CodeDisplayWidget extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
+                  color: Colors.white
                 ),
               ),
               const SizedBox(height: 16),

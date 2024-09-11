@@ -1,5 +1,37 @@
 import 'package:flutter/material.dart';
 
+class CenteredHeaderWidget extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final String description;
+  final bool isVerified;
+
+  CenteredHeaderWidget({
+    required this.title,
+    required this.subtitle,
+    required this.description,
+    this.isVerified = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 600), // Adjust this value as needed
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: HeaderWidget(
+            title: title,
+            subtitle: subtitle,
+            description: description,
+            isVerified: isVerified,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class HeaderWidget extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -29,7 +61,7 @@ class HeaderWidget extends StatelessWidget {
           ),
           child: const Icon(Icons.image, size: 120),
         ),
-        const SizedBox(width: 16),
+        const SizedBox(width: 32),
         // Headline and text
         Expanded(
           child: Column(

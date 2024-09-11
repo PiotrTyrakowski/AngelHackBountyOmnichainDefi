@@ -22,7 +22,7 @@ class ArgWidget extends StatelessWidget {
             child: Center(
                 child: Text(
               "$argName:",
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
             )),
           ),
           Expanded(
@@ -30,8 +30,22 @@ class ArgWidget extends StatelessWidget {
             child: TextField(
               controller: controller,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Colors.black), // Black border outline
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors.black), // Black border when enabled
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors.black), // Black border when focused
+                ),
                 labelText: argType,
+                filled: true,
+                fillColor:
+                    Colors.white, // White background inside the TextField
               ),
             ),
           ),
